@@ -242,6 +242,13 @@
   .signal-explanation .gr { color:var(--green); }
   .signal-explanation .rd { color:var(--red); }
   .signal-explanation .yl { color:var(--yellow); }
+  .oi-difference-panel { margin-top:14px; padding:12px; background:rgba(0,0,0,0.24); border:1px solid rgba(26,48,80,0.8); }
+  .oi-difference-grid { display:grid; grid-template-columns:1fr 1fr 1.2fr; gap:8px; }
+  .oi-total { padding:10px; border-left:3px solid var(--border); background:rgba(0,0,0,0.25); }
+  .oi-total.ce { border-color:var(--green); } .oi-total.pe { border-color:var(--red); } .oi-total.diff { border-color:var(--yellow); }
+  .oi-label { display:block; font-family:var(--mono); color:var(--text-muted); font-size:9px; letter-spacing:2px; }
+  .oi-value { display:block; margin-top:5px; font-family:var(--mono); font-size:17px; font-weight:700; }
+  .oi-total.ce .oi-value { color:var(--green); } .oi-total.pe .oi-value { color:var(--red); } .oi-total.diff .oi-value { color:var(--yellow); }
 
   /* STATS */
   .stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
@@ -279,6 +286,35 @@
   .td-pnl-neg { color:var(--red); font-weight:700; }
   .empty-journal { text-align:center; padding:40px; color:var(--text-dim); font-family:var(--mono); font-size:11px; letter-spacing:3px; }
 
+  /* NIFTY 50 BREADTH */
+  .weighted-panel { border-color:rgba(0,212,255,0.35); }
+  .weighted-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:16px; }
+  .weighted-signal { font-family:var(--display); font-size:clamp(28px,3vw,44px); font-weight:900; letter-spacing:3px; line-height:1; }
+  .weighted-signal.bullish { color:var(--green); text-shadow:var(--glow-green); }
+  .weighted-signal.bearish { color:var(--red); text-shadow:var(--glow-red); }
+  .weighted-signal.neutral { color:var(--yellow); text-shadow:var(--glow-yellow); }
+  .weighted-move { font-family:var(--mono); font-size:13px; color:var(--text-muted); margin-top:8px; }
+  .weighted-move strong { color:var(--text); font-size:18px; }
+  .breadth-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-bottom:14px; }
+  .breadth-stat { padding:10px 12px; background:rgba(0,0,0,0.28); border-left:3px solid var(--border); }
+  .breadth-stat.up { border-color:var(--green); } .breadth-stat.down { border-color:var(--red); } .breadth-stat.flat { border-color:var(--yellow); }
+  .breadth-label { font-family:var(--mono); font-size:9px; color:var(--text-muted); letter-spacing:2px; }
+  .breadth-value { font-family:var(--mono); font-size:20px; font-weight:700; margin-top:4px; }
+  .breadth-stat.up .breadth-value { color:var(--green); } .breadth-stat.down .breadth-value { color:var(--red); } .breadth-stat.flat .breadth-value { color:var(--yellow); }
+  .breadth-track { display:flex; height:8px; background:rgba(255,255,255,0.08); overflow:hidden; margin-bottom:16px; }
+  .breadth-track > div { transition:width .5s ease; } .breadth-up { background:var(--green); } .breadth-down { background:var(--red); } .breadth-flat { background:var(--yellow); }
+  .gap-summary { display:flex; justify-content:space-between; gap:12px; padding:10px 12px; margin-bottom:16px; background:rgba(0,0,0,0.24); border-left:3px solid var(--accent); font-family:var(--mono); font-size:10px; color:var(--text-muted); }
+  .gap-summary strong { color:var(--text); font-size:14px; }
+  .gap-up-value { color:var(--green)!important; } .gap-down-value { color:var(--red)!important; }
+  .constituent-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+  .constituent-row { display:grid; grid-template-columns:1fr auto auto; gap:12px; align-items:center; padding:9px 10px; background:rgba(0,0,0,0.25); border:1px solid rgba(26,48,80,0.7); }
+  .constituent-name { font-family:var(--display); font-size:15px; font-weight:700; letter-spacing:1px; }
+  .constituent-meta { display:block; font-family:var(--mono); font-size:8px; color:var(--text-muted); margin-top:2px; }
+  .constituent-return { font-family:var(--mono); font-size:14px; font-weight:700; text-align:right; }
+  .constituent-return.up { color:var(--green); } .constituent-return.down { color:var(--red); } .constituent-return.flat { color:var(--text-muted); }
+  .constituent-price { font-family:var(--mono); font-size:12px; color:var(--text); text-align:right; }
+  .weighted-foot { color:var(--text-muted); font-family:var(--mono); font-size:9px; margin-top:12px; letter-spacing:1px; }
+
   /* MARKET CLOSED BANNER */
   .market-closed-banner {
     margin:0 20px 16px; padding:12px 16px;
@@ -299,6 +335,9 @@
   @media(max-width:600px) {
     .strikes-grid { grid-template-columns:1fr; }
     .signals-row { grid-template-columns:1fr; }
+    .oi-difference-grid { grid-template-columns:1fr; }
+    .weighted-head { flex-direction:column; gap:10px; }
+    .constituent-grid { grid-template-columns:1fr; }
     .header-inner { flex-wrap:wrap; height:auto; padding:10px 0; gap:8px; }
     .nifty-value { font-size:24px; }
   }
@@ -807,6 +846,42 @@
   }
 }
 
+@media (max-width: 430px) {
+  body { background-image: radial-gradient(ellipse at 50% 0%, rgba(0,100,180,0.12), transparent 48%); }
+  .header { padding: 0 10px; }
+  .header-inner { padding: 9px 0 10px; gap: 8px; }
+  .brand { gap: 8px; }
+  .brand-text { font-size: 17px; letter-spacing: 2px; }
+  .brand-sub { font-size: 6px; letter-spacing: 2px; }
+  .header-center { padding: 7px 10px; background: rgba(0,212,255,0.04); border: 1px solid rgba(0,212,255,0.12); }
+  .nifty-value { font-size: 23px; }
+  .market-status { min-width: 118px; justify-content: center; }
+  .header-right { padding: 0; align-items: flex-end; }
+  .algo-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; gap:6px; }
+  .algo-controls .btn { width:100%; text-align:center; padding:8px 4px; font-size:9px; letter-spacing:1px; }
+  .algo-status { line-height:1.5; padding:6px 10px; }
+  .market-closed-banner { margin: 0 8px 8px; line-height:1.5; }
+  .main { padding: 8px; gap: 10px; }
+  .glass-padded { padding: 12px; }
+  .atm-info { justify-content:space-between; gap:4px; padding:9px 6px; }
+  .atm-info > div[style] { display:none !important; }
+  .atm-item { min-width:0; flex:1; }
+  .atm-item-label { font-size:7px; letter-spacing:1px; }
+  .atm-item-value { font-size:12px; }
+  .strike-card { padding: 11px; }
+  .strike-type-row { margin-bottom:7px; }
+  .strike-price { margin-bottom:8px; }
+  .metrics-grid { gap:5px; }
+  .metric { min-width:0; padding:6px 7px; }
+  .metric-label { letter-spacing:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .metric-value { font-size:12px; overflow-wrap:anywhere; }
+  .metric-note { font-size:8px; }
+  .signal-summary { grid-template-columns:1fr; gap:6px; }
+  .summary-item { padding:8px 10px; }
+  .section-title { letter-spacing:2px; }
+  .right-col .glass-padded { padding:12px; }
+}
+
 /* PRINT */
 @media print {
   body {
@@ -860,7 +935,7 @@
         <div class="clock-date" id="clockDate">----</div>
       </div>
       <div class="algo-controls">
-        <a class="btn" href="/pulsef.html" onclick="window.location.assign('/pulsef.html'); return false;">◉ VIEWS PULSE</a>
+        <a class="btn" href="/summery.html">◈ SUMMARY</a>
         <button class="btn btn-start" id="btnStart" onclick="startAlgo()">▶ START</button>
         <button class="btn btn-stop" id="btnStop" onclick="stopAlgo()" disabled>■ STOP</button>
       </div>
@@ -886,6 +961,31 @@
 <!-- MAIN -->
 <main class="main" id="mainDashboard">
   <div class="left-col">
+
+    <!-- WEIGHTED MARKET BIAS -->
+    <div class="glass glass-padded weighted-panel">
+      <div class="section-title">Nifty 50 Weighted Market Bias</div>
+      <div class="weighted-head">
+        <div>
+          <div class="weighted-signal neutral" id="weightedSignal">WAITING FOR DATA</div>
+          <div class="weighted-move">Weighted index move <strong id="weightedMove">--.--%</strong></div>
+        </div>
+        <div class="weighted-foot" id="weightedCaptured">Constituent scan pending</div>
+      </div>
+      <div class="breadth-grid">
+        <div class="breadth-stat up"><div class="breadth-label">UP</div><div class="breadth-value" id="breadthUp">0 / 0 · 0%</div></div>
+        <div class="breadth-stat down"><div class="breadth-label">DOWN</div><div class="breadth-value" id="breadthDown">0 / 0 · 0%</div></div>
+      </div>
+      <div class="breadth-track" aria-label="Nifty 50 market breadth">
+        <div class="breadth-up" id="breadthUpBar" style="width:0%"></div>
+        <div class="breadth-down" id="breadthDownBar" style="width:0%"></div>
+      </div>
+      <div class="section-title">Highest Weight Stocks · Live Move</div>
+      <div class="constituent-grid" id="constituentGrid">
+        <div class="constituent-row"><span class="constituent-name">SCANNING<span class="constituent-meta">Waiting for live quotes</span></span><span class="constituent-price">--</span><span class="constituent-return flat">--</span></div>
+      </div>
+      <div class="weighted-foot" id="weightedQuality">0 of 50 constituents received</div>
+    </div>
 
     <!-- STRIKES PANEL -->
     <div class="glass glass-padded">
@@ -958,6 +1058,14 @@
         <span class="hl">// WAITING FOR ALGO START</span><br>
         Real Angel One market data will be fetched every 5 seconds.<br>
         Order flow signals will appear based on live Bid/Ask data.
+      </div>
+      <div class="oi-difference-panel">
+        <div class="section-title">6 Strike OI Difference</div>
+        <div class="oi-difference-grid">
+          <div class="oi-total ce"><span class="oi-label">3 CE TOTAL OI</span><span class="oi-value" id="threeCeOi">0</span></div>
+          <div class="oi-total pe"><span class="oi-label">3 PE TOTAL OI</span><span class="oi-value" id="threePeOi">0</span></div>
+          <div class="oi-total diff"><span class="oi-label">OI DIFFERENCE</span><span class="oi-value" id="oiDifference">0</span></div>
+        </div>
       </div>
     </div>
 
@@ -1062,6 +1170,7 @@ const S = {
   running: false,
   scanCount: 0,
   scanTimer: null,
+  scanInFlight: false,
   trades: [],
   tradeId: 0,
   niftyPrev: 0,
@@ -1137,8 +1246,10 @@ ${vol}<br>${dir}<br>
 // ============================================================
 //  FETCH FROM OUR NODE.JS BACKEND
 // ============================================================
+const API_BASE = '';
+
 async function fetchMarketData(){
-  const res = await fetch('/api/marketdata');
+  const res = await fetch(`${API_BASE}/api/marketdata`);
   const data = await res.json();
   if(!data.success) throw new Error(data.message || 'API error');
   return data;
@@ -1168,6 +1279,10 @@ function formatIndianUnits(value){
   return `${(amount / 100000).toFixed(2)} Lakh`;
 }
 
+function formatQuantity(value){
+  return Math.round(Number(value) || 0).toLocaleString('en-IN');
+}
+
 function getTierOiDifference(options, tier){
   const ce = options.find(opt => opt.tier === tier && opt.type === 'CE');
   const pe = options.find(opt => opt.tier === tier && opt.type === 'PE');
@@ -1193,6 +1308,38 @@ function bidAskRelation(bidQty, askQty){
   return 'EQUAL';
 }
 
+function renderConstituentSignal(analytics){
+  if(!analytics) return;
+  const breadth = analytics.breadth || {};
+  const signalEl = document.getElementById('weightedSignal');
+  const signal = analytics.signal || 'NEUTRAL';
+  const simpleSignal = signal.includes('BULLISH') ? 'BULLISH' : signal.includes('BEARISH') ? 'BEARISH' : 'NEUTRAL';
+  signalEl.textContent = simpleSignal;
+  signalEl.className = `weighted-signal ${signal.includes('BULLISH') ? 'bullish' : signal.includes('BEARISH') ? 'bearish' : 'neutral'}`;
+  const move = Number(analytics.totalMove) || 0;
+  const moveEl = document.getElementById('weightedMove');
+  moveEl.textContent = `${move >= 0 ? '+' : ''}${move.toFixed(3)}%`;
+  moveEl.style.color = move > 0 ? 'var(--green)' : move < 0 ? 'var(--red)' : 'var(--yellow)';
+
+  document.getElementById('breadthUp').textContent = `${breadth.up || 0} / ${breadth.total || 0} · ${breadth.upPct || 0}%`;
+  document.getElementById('breadthDown').textContent = `${breadth.down || 0} / ${breadth.total || 0} · ${breadth.downPct || 0}%`;
+  document.getElementById('breadthUpBar').style.width = `${breadth.upPct || 0}%`;
+  document.getElementById('breadthDownBar').style.width = `${breadth.downPct || 0}%`;
+  document.getElementById('weightedQuality').textContent = `${breadth.total || 0} of 50 constituents received${analytics.missing?.length ? ` · ${analytics.missing.length} unavailable` : ''}`;
+  document.getElementById('weightedCaptured').textContent = analytics.capturedAt ? `Updated ${new Date(analytics.capturedAt).toLocaleTimeString()}` : 'Live constituent scan';
+
+  const topStocks = (analytics.stocks || []).slice(0, 10);
+  document.getElementById('constituentGrid').innerHTML = topStocks.length ? topStocks.map(stock => {
+    const returnPct = Number(stock.dayReturnPct ?? stock.returnPct) || 0;
+    const direction = returnPct > 0 ? 'up' : returnPct < 0 ? 'down' : 'flat';
+    return `<div class="constituent-row">
+      <span class="constituent-name">${stock.ticker}<span class="constituent-meta">Weight ${Number(stock.weight).toFixed(2)}%</span></span>
+      <span class="constituent-price">₹${Number(stock.price).toFixed(2)}</span>
+      <span class="constituent-return ${direction}">${returnPct >= 0 ? '+' : ''}${returnPct.toFixed(2)}%</span>
+    </div>`;
+  }).join('') : '<div class="constituent-row"><span class="constituent-name">NO QUOTES<span class="constituent-meta">Constituent data unavailable</span></span><span class="constituent-price">--</span><span class="constituent-return flat">--</span></div>';
+}
+
 function renderPairComparison(options, tier){
   const pair = getTierPair(options, tier);
   const ce = pair.ce;
@@ -1202,15 +1349,26 @@ function renderPairComparison(options, tier){
   return `<div class="pair-comparison">
     <div class="pair-comparison-title">${tier==='atm'?'ATM':'ITM'} CE vs PE LIVE COMPARISON</div>
     <div class="pair-comparison-row"><span class="pair-comparison-label">OI</span><span class="pair-ce">CE ${formatIndianUnits(ce.oi)}</span><span class="pair-pe">PE ${formatIndianUnits(pe.oi)}</span><span class="pair-difference">${comparisonText(Number(ce.oi)||0, Number(pe.oi)||0, formatIndianUnits)}</span></div>
-    <div class="pair-comparison-row"><span class="pair-comparison-label">BID QTY</span><span class="pair-ce">CE ${formatIndianUnits(ce.bidQty)}</span><span class="pair-pe">PE ${formatIndianUnits(pe.bidQty)}</span><span class="pair-difference">${comparisonText(Number(ce.bidQty)||0, Number(pe.bidQty)||0, formatIndianUnits)}</span></div>
-    <div class="pair-comparison-row"><span class="pair-comparison-label">ASK QTY</span><span class="pair-ce">CE ${formatIndianUnits(ce.askQty)}</span><span class="pair-pe">PE ${formatIndianUnits(pe.askQty)}</span><span class="pair-difference">${comparisonText(Number(ce.askQty)||0, Number(pe.askQty)||0, formatIndianUnits)}</span></div>
-    <div class="pair-comparison-row"><span class="pair-comparison-label">B/A</span><span class="pair-ce">CE ${bidAskRelation(ce.bidQty || 0, ce.askQty || 0)}<br>B:${formatIndianUnits(ce.bidQty)} A:${formatIndianUnits(ce.askQty)}</span><span class="pair-pe">PE ${bidAskRelation(pe.bidQty || 0, pe.askQty || 0)}<br>B:${formatIndianUnits(pe.bidQty)} A:${formatIndianUnits(pe.askQty)}</span><span class="pair-difference">Ratio: CE ${ceRatio.toFixed(2)} | PE ${peRatio.toFixed(2)}</span></div>
+    <div class="pair-comparison-row"><span class="pair-comparison-label">BID QTY</span><span class="pair-ce">CE ${formatQuantity(ce.bidQty)}</span><span class="pair-pe">PE ${formatQuantity(pe.bidQty)}</span><span class="pair-difference">${comparisonText(Number(ce.bidQty)||0, Number(pe.bidQty)||0, formatQuantity)}</span></div>
+    <div class="pair-comparison-row"><span class="pair-comparison-label">ASK QTY</span><span class="pair-ce">CE ${formatQuantity(ce.askQty)}</span><span class="pair-pe">PE ${formatQuantity(pe.askQty)}</span><span class="pair-difference">${comparisonText(Number(ce.askQty)||0, Number(pe.askQty)||0, formatQuantity)}</span></div>
+    <div class="pair-comparison-row"><span class="pair-comparison-label">B/A</span><span class="pair-ce">CE ${bidAskRelation(ce.bidQty || 0, ce.askQty || 0)}<br>B:${formatQuantity(ce.bidQty)} A:${formatQuantity(ce.askQty)}</span><span class="pair-pe">PE ${bidAskRelation(pe.bidQty || 0, pe.askQty || 0)}<br>B:${formatQuantity(pe.bidQty)} A:${formatQuantity(pe.askQty)}</span><span class="pair-difference">Ratio: CE ${ceRatio.toFixed(2)} | PE ${peRatio.toFixed(2)}</span></div>
   </div>`;
 }
 
-function renderStrikes(options, strikeTotals, atm){
+function renderStrikes(options, strikeTotals, atm, openingOptions=[]){
   const grid = document.getElementById('strikesGrid');
-  grid.innerHTML = options.map(opt => {
+  const displayOptions = [...options].sort((first, second) => {
+    const tierOrder = { atm: 0, itm1: 1, itm2: 2 };
+    const tierDifference = (tierOrder[first.tier] ?? 9) - (tierOrder[second.tier] ?? 9);
+    return tierDifference || (first.type === 'CE' ? -1 : 1);
+  });
+  grid.innerHTML = displayOptions.map(opt => {
+    const opening = openingOptions.find(item => item.label === opt.label) || {};
+    const openingOi = Number(opening.oi) || 0;
+    const currentOi = Number(opt.oi) || 0;
+    const oiChange = currentOi - openingOi;
+    const oiChangePct = openingOi ? (oiChange / openingOi) * 100 : 0;
+    const oiChangeClass = oiChange > 0 ? 'price-up' : oiChange < 0 ? 'price-down' : 'price-flat';
     const strikeInfo = getStrikeTotalsForOption(strikeTotals, opt.strike, opt.type) || {};
     const sig = getSignal(opt);
     const rClass = opt.ratio>1.5?'ratio-bullish':opt.ratio<0.67?'ratio-bearish':'ratio-neutral';
@@ -1219,13 +1377,15 @@ function renderStrikes(options, strikeTotals, atm){
     const pClass = opt.priceChange>0.5?'price-up':opt.priceChange<-0.5?'price-down':'price-flat';
     const pIcon  = opt.priceChange>0.5?'▲':opt.priceChange<-0.5?'▼':'→';
     const tierBadge = opt.tier==='atm'?'badge-atm':'badge-itm1';
-    const tierLabel = opt.tier==='atm'?'ATM':'1 ITM';
+    const tierLabel = opt.tier==='atm'?'ATM':opt.tier==='itm2'?'2 ITM':'1 ITM';
     const typeBadge = opt.type==='CE'?'badge-ce':'badge-pe';
     const sPill = sig==='LONG'?'signal-long':sig==='SHORT'?'signal-short':'signal-none';
-    const oiDifference = getTierOiDifference(options, opt.tier);
+    const oiPair = getTierPair(options, opt.tier);
+    const ceOi = Number(oiPair.ce.oi) || 0;
+    const peOi = Number(oiPair.pe.oi) || 0;
+    const oiDifference = ceOi - peOi;
     const oiDifferenceClass = oiDifference > 0 ? 'price-up' : oiDifference < 0 ? 'price-down' : 'price-flat';
-    const oiDifferenceLabel = oiDifference > 0 ? 'CE HIGHER' : oiDifference < 0 ? 'PE HIGHER' : 'EQUAL';
-    const bidAskRelationLabel = bidAskRelation(opt.bidQty || 0, opt.askQty || 0);
+    const oiDifferenceLabel = oiDifference > 0 ? `CE GREATER BY ${formatIndianUnits(oiDifference)}` : oiDifference < 0 ? `PE GREATER BY ${formatIndianUnits(Math.abs(oiDifference))}` : 'CE AND PE EQUAL';
     return `
     <div class="glass strike-card">
       <div class="strike-type-row">
@@ -1235,15 +1395,15 @@ function renderStrikes(options, strikeTotals, atm){
       <div class="strike-name">${opt.strike} ${opt.type}</div>
       <div class="strike-price">₹${opt.price?.toFixed(2)||'--'} <span>${opt.priceChange>=0?'+':''}${opt.priceChange} (${opt.pctChange}%)</span></div>
       <div class="metrics-grid">
-        <div class="metric"><div class="metric-label">Bid Qty</div><div class="metric-value">${(opt.bidQty||0).toLocaleString()}</div></div>
-        <div class="metric"><div class="metric-label">Ask Qty</div><div class="metric-value">${(opt.askQty||0).toLocaleString()}</div></div>
+        <div class="metric"><div class="metric-label">OPENING OI</div><div class="metric-value">${opening.oi ? formatIndianUnits(opening.oi) : 'Waiting for 09:15'}</div></div>
+        <div class="metric"><div class="metric-label">CE OI</div><div class="metric-value pair-ce">${formatIndianUnits(ceOi)}</div></div>
+        <div class="metric"><div class="metric-label">PE OI</div><div class="metric-value pair-pe">${formatIndianUnits(peOi)}</div></div>
+        <div class="metric ${oiDifferenceClass}" style="grid-column:1/-1;"><div class="metric-label">${opt.tier==='atm'?'ATM':'ITM'} OI DIFFERENCE</div><div class="metric-value">${oiDifferenceLabel}</div><div class="metric-note">CE OI: ${formatIndianUnits(ceOi)} | PE OI: ${formatIndianUnits(peOi)}</div></div>
+        <div class="metric ${oiChangeClass}" style="grid-column:1/-1;"><div class="metric-label">OI CHANGE FROM OPEN</div><div class="metric-value">${openingOi ? `${oiChange >= 0 ? '+' : '-'}${formatIndianUnits(Math.abs(oiChange))} (${oiChange >= 0 ? '+' : ''}${oiChangePct.toFixed(2)}%)` : 'Waiting for opening capture'}</div><div class="metric-note">${oiChange > 0 ? 'OI increased' : oiChange < 0 ? 'OI decreased' : 'No change'}</div></div>
         <div class="metric ${vClass}"><div class="metric-label">Volume</div><div class="metric-value">${formatIndianUnits(opt.volume)}${opt.volumeSpike ? ' ⚡' : ''}</div></div>
-        <div class="metric"><div class="metric-label">OI</div><div class="metric-value">${formatIndianUnits(opt.oi)}</div></div>
-        <div class="metric ${oiDifferenceClass}" style="grid-column:1/-1;"><div class="metric-label">${opt.tier==='atm'?'ATM':'ITM'} CE - PE OI Difference</div><div class="metric-value">${oiDifference >= 0 ? '+' : '-'}${formatIndianUnits(Math.abs(oiDifference))}</div><div class="metric-note">${oiDifferenceLabel} | Current market</div></div>
-        ${renderPairComparison(options, opt.tier)}
       </div>
       <div class="metrics-grid" style="margin-top:10px;">
-        <div class="metric ${rClass}" style="grid-column:1/-1;"><div class="metric-label">Bid/Ask Relation</div><div class="metric-value">${bidAskRelationLabel}</div><div class="metric-note">Bid: ${formatIndianUnits(opt.bidQty)} | Ask: ${formatIndianUnits(opt.askQty)} | Ratio: ${opt.ratio}</div></div>
+        <div class="metric" style="grid-column:1/-1;"><div class="metric-label">BID / ASK</div><div class="metric-value">B ${formatQuantity(opt.bidQty)} &nbsp; | &nbsp; A ${formatQuantity(opt.askQty)}</div></div>
         <div class="metric ${pClass}" style="grid-column:1/-1;"><div class="metric-label">Price Action</div><div class="metric-value">${pIcon} ${opt.priceChange>=0?'+':''}${opt.priceChange} pts</div></div>
       </div>
       <span class="signal-pill ${sPill}">${sig}</span>
@@ -1292,6 +1452,13 @@ function renderAggregateSummary(suggestion) {
   peTotalsEl.textContent = `B:${suggestion.aggregates.side.PE.bidQty.toLocaleString()} A:${suggestion.aggregates.side.PE.askQty.toLocaleString()} V:${suggestion.aggregates.side.PE.volume.toLocaleString()} OI:${suggestion.aggregates.side.PE.oi.toLocaleString()}`;
   totalBidQtyEl.textContent = totalBidQty.toLocaleString();
   totalAskQtyEl.textContent = totalAskQty.toLocaleString();
+
+  const ceOi = suggestion.aggregates.side.CE.oi || 0;
+  const peOi = suggestion.aggregates.side.PE.oi || 0;
+  const oiDifference = ceOi - peOi;
+  document.getElementById('threeCeOi').textContent = formatIndianUnits(ceOi);
+  document.getElementById('threePeOi').textContent = formatIndianUnits(peOi);
+  document.getElementById('oiDifference').textContent = `${oiDifference >= 0 ? 'CE +' : 'PE +'}${formatIndianUnits(Math.abs(oiDifference))}`;
 }
 
 function selectBestOptionForSide(options, side) {
@@ -1406,7 +1573,8 @@ function animateBar(){
 //  MAIN SCAN
 // ============================================================
 async function scan(){
-  if(!S.running) return;
+  if(!S.running || S.scanInFlight) return;
+  S.scanInFlight = true;
   S.scanCount++;
   document.getElementById('scanInfo').textContent=`Scans: ${S.scanCount} | Last: ${timeOnly()}`;
   animateBar();
@@ -1419,11 +1587,12 @@ async function scan(){
   document.getElementById('statusText').style.color = open?'var(--green)':'var(--yellow)';
 
   try {
-    const {spot, atm, options, suggestion} = await fetchMarketData();
+    const {spot, atm, options, suggestion, marketPulse, constituentSignal} = await fetchMarketData();
 
     // Update header
     document.getElementById('niftyPrice').textContent = spot.toFixed(2);
-    const chg = parseFloat((spot - (S.niftyPrev||spot)).toFixed(2));
+    const previousSpot = S.niftyPrev;
+    const chg = parseFloat((spot - (previousSpot||spot)).toFixed(2));
     const chgPct = S.niftyPrev>0 ? ((chg/S.niftyPrev)*100).toFixed(3) : '0.000';
     const chgEl = document.getElementById('niftyChange');
     chgEl.textContent = `${chg>=0?'▲':'▼'} ${Math.abs(chg)} (${Math.abs(chgPct)}%)`;
@@ -1436,7 +1605,8 @@ async function scan(){
     document.getElementById('itm1CE').textContent    = `${atm-50}`;
     document.getElementById('itm1PE').textContent    = `${atm+50}`;
 
-    renderStrikes(options, suggestion.strikeTotals || [], atm);
+    renderStrikes(options, suggestion.strikeTotals || [], atm, marketPulse?.opening?.options || []);
+    renderConstituentSignal(constituentSignal);
     const {topSig, topOpt} = renderSignals(options);
     renderAggregateSummary(suggestion);
 
@@ -1462,13 +1632,16 @@ async function scan(){
     addFeed(`Scan #${S.scanCount} error: ${err.message}`,'f-red');
     document.getElementById('statusDot').className='status-dot offline';
     document.getElementById('statusText').textContent='API ERROR';
+  } finally {
+    S.scanInFlight = false;
+    if(S.running) S.scanTimer = setTimeout(scan, SCAN_MS);
   }
 }
 
 // ============================================================
 //  ALGO CONTROLS
 // ============================================================
-function startAlgo(){
+async function startAlgo(){
   if(S.running) return;
   S.running=true;
   document.getElementById('btnStart').disabled=true;
@@ -1477,13 +1650,12 @@ function startAlgo(){
   document.getElementById('algoStatusText').className='algo-running';
   addFeed('ALGO STARTED — fetching live Angel One data','f-green');
   scan();
-  S.scanTimer = setInterval(scan, SCAN_MS);
 }
 
 function stopAlgo(){
   if(!S.running) return;
   S.running=false;
-  clearInterval(S.scanTimer);
+  clearTimeout(S.scanTimer);
   document.getElementById('btnStart').disabled=false;
   document.getElementById('btnStop').disabled=true;
   document.getElementById('algoStatusText').textContent='● ALGO STOPPED';
